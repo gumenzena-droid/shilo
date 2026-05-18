@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHILO 50 — программа подготовки риэлторов нового времени</title>
+  <style>
+    :root{
+      --bg:#020503;
+      --bg2:#07110b;
+      --card:rgba(5,13,9,.78);
+      --card2:rgba(7,18,11,.92);
+      --green:#82ff16;
+      --green2:#35ff80;
+      --green3:#b5ff2a;
+      --white:#f4fff4;
+      --muted:#a8b8aa;
+      --line:rgba(130,255,22,.45);
+      --shadow:0 0 32px rgba(130,255,22,.25), inset 0 0 28px rgba(130,255,22,.08);
+      --radius:24px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: "Inter", "Arial", sans-serif;
+      color:var(--white);
+      background:
+        radial-gradient(circle at 82% 18%, rgba(130,255,22,.18), transparent 28%),
+        radial-gradient(circle at 18% 80%, rgba(53,255,128,.08), transparent 30%),
+        linear-gradient(135deg, #000 0%, #030704 42%, #08140c 100%);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(130,255,22,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(130,255,22,.045) 1px, transparent 1px);
+      background-size:64px 64px;
+      mask-image: radial-gradient(circle at center, rgba(0,0,0,.8), transparent 72%);
+      z-index:0;
+    }
+
+    body::after{
+      content:"";
+      position:fixed;
+      inset:-30%;
+      pointer-events:none;
+      background:
+        conic-gradient(from 130deg at 70% 35%, transparent 0 55%, rgba(130,255,22,.11) 58%, transparent 64% 100%);
+      filter:blur(2px);
+      opacity:.9;
+      z-index:0;
+    }
+
+    a{color:inherit;text-decoration:none}
+    .page{position:relative;z-index:1}
+    .container{width:min(1180px, calc(100% - 40px));margin:0 auto}
+
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter:blur(18px);
+      background:rgba(0,0,0,.62);
+      border-bottom:1px solid rgba(130,255,22,.22);
+    }
+    .nav-inner{
+      height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      min-width:0;
+    }
+    .logo{
+      width:52px;
+      height:52px;
+      border:1px solid rgba(244,255,244,.55);
+      border-radius:15px;
+      display:grid;
+      place-items:center;
+      box-shadow:0 0 18px rgba(130,255,22,.18);
+      background:linear-gradient(145deg, rgba(255,255,255,.07), rgba(0,0,0,.7));
+      flex:0 0 auto;
+      position:relative;
+      overflow:hidden;
+    }
+    .logo svg{width:34px;height:34px}
+    .brand-title{
+      font-weight:900;
+      letter-spacing:.08em;
+      font-size:26px;
+      line-height:1;
+    }
+    .brand-sub{
+      color:var(--green);
+      font-size:11px;
+      letter-spacing:.12em;
+      margin-top:5px;
+      white-space:nowrap;
+    }
+    .nav-links{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .nav-links a:hover{color:var(--green)}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:48px;
+      padding:14px 24px;
+      border-radius:999px;
+      border:1px solid rgba(130,255,22,.8);
+      background:linear-gradient(135deg, rgba(130,255,22,.22), rgba(53,255,128,.08));
+      color:var(--green3);
+      font-weight:900;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      box-shadow:0 0 24px rgba(130,255,22,.24), inset 0 0 22px rgba(130,255,22,.08);
+      cursor:pointer;
+      transition:.25s ease;
+    }
+    .btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 0 36px rgba(130,255,22,.42), inset 0 0 26px rgba(130,255,22,.13);
+      color:#fff;
+    }
+
+    .hero{
+      min-height:calc(100vh - 76px);
+      display:grid;
+      align-items:center;
+      padding:80px 0 70px;
+      position:relative;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:42px;
+      align-items:center;
+    }
+    .kicker{
+      color:var(--green);
+      font-weight:900;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      font-size:14px;
+      margin-bottom:18px;
+    }
+    h1{
+      margin:0;
+      font-size:clamp(58px, 8vw, 126px);
+      line-height:.88;
+      letter-spacing:.035em;
+      text-transform:uppercase;
+      text-shadow:0 0 26px rgba(255,255,255,.16);
+    }
+    .hero h1 span{color:var(--green);text-shadow:0 0 28px rgba(130,255,22,.42)}
+    .lead{
+      color:#dce9dd;
+      font-size:clamp(18px, 2vw, 24px);
+      line-height:1.42;
+      margin:28px 0 34px;
+      max-width:720px;
+    }
+    .lead b{color:var(--green3)}
+    .hero-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+
+    .hero-visual{
+      min-height:560px;
+      position:relative;
+      border-radius:34px;
+      border:1px solid rgba(130,255,22,.22);
+      background:
+        radial-gradient(circle at 58% 44%, rgba(130,255,22,.2), transparent 22%),
+        linear-gradient(145deg, rgba(8,19,11,.9), rgba(0,0,0,.7));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .hero-visual::before{
+      content:"";
+      position:absolute;
+      inset:7%;
+      border-radius:50%;
+      border:2px solid rgba(130,255,22,.3);
+      box-shadow:0 0 80px rgba(130,255,22,.22), inset 0 0 60px rgba(130,255,22,.06);
+      animation:pulse 4s ease-in-out infinite;
+    }
+    .hero-visual::after{
+      content:"";
+      position:absolute;
+      width:72%;
+      height:72%;
+      border-radius:50%;
+      right:-20%;
+      top:14%;
+      background:
+        repeating-conic-gradient(from 0deg, rgba(130,255,22,.5) 0deg 3deg, transparent 3deg 8deg);
+      mask:radial-gradient(circle, transparent 52%, #000 53%, #000 58%, transparent 60%);
+      opacity:.55;
+      animation:rotate 26s linear infinite;
+    }
+    .house-card{
+      position:absolute;
+      inset:auto 7% 8% 7%;
+      height:54%;
+      border-radius:28px;
+      border:1px solid rgba(130,255,22,.35);
+      background:
+        linear-gradient(180deg, rgba(2,5,3,.10), rgba(2,5,3,.70)),
+        radial-gradient(circle at 62% 18%, rgba(130,255,22,.18), transparent 36%);
+      box-shadow:0 0 40px rgba(130,255,22,.18);
+      overflow:hidden;
+    }
+    .house-photo{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(4,10,6,.12), rgba(3,7,4,.52)),
+        url('https://i.postimg.cc/nVKZ3ZQg/house.jpg') center/cover no-repeat;
+      filter:saturate(1.02) contrast(1.04);
+    }
+    .reflection{
+      position:absolute;
+      left:4%;
+      right:4%;
+      bottom:0;
+      height:24%;
+      background:linear-gradient(180deg, rgba(130,255,22,.18), transparent);
+      transform:skewX(-12deg);
+      opacity:.7;
+    }
+    .stats-orbit{
+      position:absolute;
+      left:8%;
+      top:8%;
+      display:grid;
+      gap:12px;
+      z-index:3;
+    }
+    .mini-stat{
+      width:148px;
+      padding:16px;
+      border-radius:18px;
+      border:1px solid rgba(130,255,22,.35);
+      background:rgba(0,0,0,.48);
+      box-shadow:inset 0 0 20px rgba(130,255,22,.06);
+    }
+    .mini-stat strong{display:block;color:var(--green);font-size:30px;line-height:1}
+    .mini-stat span{color:var(--muted);font-size:12px}
+
+    section{padding:92px 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:34px}
+    .section-head h2{
+      margin:0;
+      font-size:clamp(34px, 5vw, 64px);
+      line-height:1;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+    .section-head p{margin:0;color:var(--muted);max-width:480px;line-height:1.5}
+    .accent{color:var(--green)}
+
+    
+    .leader-section{
+      padding:46px 0 92px;
+    }
+    .leader-card{
+      display:grid;
+      grid-template-columns:.88fr 1.12fr;
+      gap:34px;
+      align-items:center;
+      border:1px solid rgba(130,255,22,.45);
+      border-radius:36px;
+      background:
+        radial-gradient(circle at 22% 18%, rgba(130,255,22,.16), transparent 30%),
+        linear-gradient(145deg, rgba(5,13,9,.92), rgba(0,0,0,.72));
+      box-shadow:0 0 52px rgba(130,255,22,.18), inset 0 0 44px rgba(130,255,22,.05);
+      overflow:hidden;
+      padding:30px;
+      position:relative;
+    }
+    .leader-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, transparent, rgba(130,255,22,.12), transparent),
+        repeating-linear-gradient(135deg, rgba(130,255,22,.04) 0 1px, transparent 1px 18px);
+      pointer-events:none;
+      opacity:.75;
+    }
+    .leader-photo{
+      position:relative;
+      min-height:520px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      background:transparent;
+      overflow:visible;
+      z-index:1;
+    }
+    .leader-photo img{
+      width:100%;
+      max-width:500px;
+      height:auto;
+      object-fit:contain;
+      display:block;
+      filter:drop-shadow(0 0 28px rgba(130,255,22,.18));
+    }
+    .leader-content{
+      position:relative;
+      z-index:1;
+    }
+    .leader-tag{
+      color:var(--green);
+      font-weight:900;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-size:13px;
+      margin-bottom:14px;
+    }
+    .leader-content h2{
+      margin:0 0 10px;
+      font-size:clamp(34px, 4.5vw, 64px);
+      line-height:.96;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+    .leader-role{
+      color:#dfeadf;
+      font-size:20px;
+      line-height:1.35;
+      margin:0 0 24px;
+    }
+    .leader-role b{color:var(--green)}
+    .quote-box{
+      border-left:3px solid var(--green);
+      padding:18px 0 18px 22px;
+      margin:24px 0 28px;
+      color:#eef8ee;
+      font-size:21px;
+      line-height:1.45;
+      background:linear-gradient(90deg, rgba(130,255,22,.08), transparent);
+    }
+    .quote-box p{margin:0 0 14px}
+    .quote-box p:last-child{margin-bottom:0}
+    .video-modal{
+      position:fixed;
+      inset:0;
+      z-index:120;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,.88);
+      backdrop-filter:blur(12px);
+      padding:24px;
+    }
+    .video-modal.active{display:flex}
+    .video-box{
+      width:min(980px, 100%);
+      border:1px solid rgba(130,255,22,.62);
+      border-radius:28px;
+      background:#000;
+      box-shadow:0 0 70px rgba(130,255,22,.28);
+      padding:18px;
+      position:relative;
+    }
+    .video-close{
+      position:absolute;
+      right:18px;
+      top:12px;
+      z-index:2;
+      background:rgba(0,0,0,.75);
+      border:1px solid rgba(130,255,22,.45);
+      color:var(--green);
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      font-size:26px;
+      cursor:pointer;
+    }
+    .video-frame{
+      width:100%;
+      aspect-ratio:16/9;
+      border:0;
+      border-radius:18px;
+      display:block;
+      background:#030704;
+    }
+
+.grid-stats{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:16px;
+    }
+    .stat-card{
+      min-height:168px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:linear-gradient(145deg, rgba(6,18,10,.9), rgba(0,0,0,.62));
+      padding:24px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .stat-card::after{
+      content:"";
+      position:absolute;
+      inset:auto -10% -35% -10%;
+      height:70%;
+      background:radial-gradient(circle, rgba(130,255,22,.13), transparent 70%);
+      pointer-events:none;
+    }
+    .stat-card .num{
+      font-size:54px;
+      line-height:1;
+      font-weight:900;
+      color:var(--green);
+      letter-spacing:.02em;
+    }
+    .stat-card .label{
+      margin-top:14px;
+      color:#e8f4e8;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+    .stat-card .sub{margin-top:8px;color:var(--muted);font-size:14px;line-height:1.35}
+
+    .modules{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+      counter-reset:mod;
+    }
+    .module-card{
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:28px;
+      min-height:290px;
+      background:linear-gradient(145deg, rgba(5,13,9,.92), rgba(0,0,0,.72));
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .module-card::before{
+      counter-increment:mod;
+      content:"0" counter(mod);
+      position:absolute;
+      right:18px;
+      top:14px;
+      font-size:52px;
+      font-weight:900;
+      color:rgba(130,255,22,.16);
+    }
+    .module-card h3{
+      margin:0 0 18px;
+      color:var(--green);
+      font-size:26px;
+      line-height:1.1;
+      text-transform:uppercase;
+    }
+    .module-card ul{padding:0;margin:0;list-style:none;display:grid;gap:12px;color:#dce9dd}
+    .module-card li{position:relative;padding-left:24px;line-height:1.35}
+    .module-card li::before{
+      content:"";
+      width:9px;height:9px;border-radius:50%;
+      background:var(--green);
+      position:absolute;left:0;top:.45em;
+      box-shadow:0 0 12px rgba(130,255,22,.9);
+    }
+
+    .balance-wrap{
+      display:grid;
+      grid-template-columns:.9fr 1.1fr;
+      gap:28px;
+      align-items:center;
+    }
+    .donut-card{
+      border:1px solid var(--line);
+      border-radius:32px;
+      background:linear-gradient(145deg, rgba(7,18,11,.86), rgba(0,0,0,.72));
+      box-shadow:var(--shadow);
+      min-height:480px;
+      display:grid;
+      place-items:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .donut{
+      width:min(360px, 78vw);
+      aspect-ratio:1;
+      border-radius:50%;
+      background:conic-gradient(var(--green) 0 45%, rgba(86,128,94,.85) 45% 70%, rgba(169,190,174,.5) 70% 100%);
+      position:relative;
+      box-shadow:0 0 52px rgba(130,255,22,.26);
+    }
+    .donut::before{
+      content:"";
+      position:absolute;
+      inset:21%;
+      border-radius:50%;
+      background:#030704;
+      border:1px solid rgba(130,255,22,.35);
+      box-shadow:inset 0 0 28px rgba(130,255,22,.07);
+    }
+    .donut span{
+      position:absolute;
+      font-size:32px;
+      font-weight:900;
+      color:var(--green3);
+      text-shadow:0 0 14px rgba(130,255,22,.55);
+    }
+    .p45{right:16%;top:43%}
+    .p25{left:43%;bottom:17%}
+    .p30{left:17%;top:42%}
+    .donut-caption{
+      position:absolute;
+      bottom:28px;
+      color:var(--muted);
+      font-size:14px;
+      text-align:center;
+      width:80%;
+      line-height:1.4;
+    }
+    .balance-list{display:grid;gap:16px}
+    .info-card{
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:rgba(0,0,0,.62);
+      padding:24px;
+      box-shadow:inset 0 0 22px rgba(130,255,22,.05);
+    }
+    .info-card h3{margin:0 0 10px;color:#fff;font-size:28px;line-height:1.05}
+    .info-card p{margin:0;color:#d5e4d7;line-height:1.45}
+    .info-card b{color:var(--green)}
+
+    .timeline{
+      border:1px solid var(--line);
+      border-radius:32px;
+      background:linear-gradient(145deg, rgba(5,13,9,.9), rgba(0,0,0,.66));
+      padding:28px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .weeks{
+      display:grid;
+      grid-template-columns:repeat(12, 1fr);
+      gap:6px;
+      position:relative;
+      margin:20px 0 34px;
+    }
+    .weeks::before{
+      content:"";
+      position:absolute;
+      left:3%;right:3%;top:21px;
+      height:2px;
+      background:linear-gradient(90deg, transparent, var(--green), transparent);
+      box-shadow:0 0 20px rgba(130,255,22,.8);
+    }
+    .week{
+      text-align:center;
+      position:relative;
+      padding-top:46px;
+      color:#e9f7e9;
+      font-weight:800;
+      font-size:12px;
+    }
+    .week::before{
+      content:"";
+      position:absolute;
+      left:50%;top:8px;
+      width:26px;height:26px;
+      transform:translateX(-50%);
+      border-radius:50%;
+      border:2px solid var(--green);
+      background:#08140c;
+      box-shadow:0 0 18px rgba(130,255,22,.7);
+    }
+    .meeting-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:16px;
+    }
+
+    .rewards{
+      display:grid;
+      gap:16px;
+    }
+    .reward{
+      display:grid;
+      grid-template-columns:110px 1fr;
+      gap:20px;
+      align-items:center;
+      border:1px solid var(--line);
+      border-radius:26px;
+      background:linear-gradient(90deg, rgba(0,0,0,.8), rgba(10,24,13,.64));
+      box-shadow:var(--shadow);
+      padding:20px;
+    }
+    .reward-num{
+      color:var(--green);
+      font-weight:900;
+      font-size:58px;
+      line-height:1;
+      text-align:center;
+      text-shadow:0 0 18px rgba(130,255,22,.5);
+    }
+    .reward h3{margin:0 0 8px;color:var(--green);font-size:24px;text-transform:uppercase}
+    .reward p{margin:0;color:#dce8dc;line-height:1.45}
+
+    
+    .reviews-grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:18px;
+    }
+    .review-card{
+      border:1px solid rgba(130,255,22,.28);
+      border-radius:26px;
+      background:
+        linear-gradient(145deg, rgba(5,13,9,.92), rgba(0,0,0,.72));
+      padding:24px;
+      box-shadow:0 0 28px rgba(130,255,22,.12), inset 0 0 18px rgba(130,255,22,.04);
+      position:relative;
+      overflow:hidden;
+    }
+    .review-card::before{
+      content:"“";
+      position:absolute;
+      right:16px;
+      top:6px;
+      font-size:78px;
+      line-height:1;
+      color:rgba(130,255,22,.12);
+      font-weight:900;
+    }
+    .review-name{
+      margin:0 0 14px;
+      color:var(--green);
+      font-size:24px;
+      font-weight:900;
+      line-height:1.2;
+    }
+    .review-text{
+      color:#edf6ee;
+      font-size:18px;
+      line-height:1.6;
+      margin:0;
+    }
+    .reviews-actions{
+      margin-top:28px;
+      display:flex;
+      justify-content:center;
+    }
+
+.faq{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+    details{
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:rgba(0,0,0,.58);
+      padding:22px;
+      box-shadow:inset 0 0 20px rgba(130,255,22,.04);
+    }
+    summary{
+      cursor:pointer;
+      color:#fff;
+      font-weight:900;
+      font-size:20px;
+      list-style:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    details p{color:var(--muted);line-height:1.5;margin:14px 0 0}
+
+    .cta{
+      padding:110px 0 120px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .cta-card{
+      border:1px solid rgba(130,255,22,.5);
+      border-radius:38px;
+      padding:56px 28px;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(130,255,22,.2), transparent 36%),
+        linear-gradient(145deg, rgba(5,13,9,.94), rgba(0,0,0,.7));
+      box-shadow:0 0 60px rgba(130,255,22,.22), inset 0 0 60px rgba(130,255,22,.06);
+    }
+    .cta h2{
+      margin:0 auto 18px;
+      font-size:clamp(40px, 7vw, 90px);
+      line-height:.98;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+    .cta p{
+      color:#dfeadf;
+      max-width:820px;
+      margin:0 auto 34px;
+      font-size:22px;
+      line-height:1.45;
+    }
+
+    .price-final{
+      width:min(820px, 100%);
+      margin:34px auto 0;
+      display:grid;
+      gap:14px;
+      text-align:left;
+    }
+    .price-card{
+      border:1px solid rgba(130,255,22,.48);
+      border-radius:24px;
+      background:linear-gradient(145deg, rgba(0,0,0,.64), rgba(8,20,11,.78));
+      box-shadow:0 0 28px rgba(130,255,22,.16), inset 0 0 22px rgba(130,255,22,.05);
+      padding:22px;
+    }
+    .price-card h3{
+      margin:0 0 10px;
+      font-size:24px;
+      color:#fff;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+    .price-value{
+      font-size:42px;
+      line-height:1;
+      font-weight:900;
+      color:var(--green);
+      text-shadow:0 0 18px rgba(130,255,22,.46);
+      margin:8px 0 12px;
+    }
+    .price-card p{
+      margin:0;
+      font-size:17px;
+      color:#dfeadf;
+      line-height:1.45;
+    }
+    .referral-details{
+      display:none;
+      margin-top:14px;
+      border-top:1px solid rgba(130,255,22,.22);
+      padding-top:14px;
+      color:#dfeadf;
+      line-height:1.5;
+    }
+    .referral-details.active{display:block}
+    .referral-details strong{color:var(--green)}
+    .learn-more{
+      margin-top:16px;
+      min-height:42px;
+      padding:12px 18px;
+      font-size:13px;
+    }
+
+    .modal{
+      position:fixed;
+      inset:0;
+      z-index:100;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,.82);
+      backdrop-filter:blur(10px);
+      padding:24px;
+    }
+    .modal.active{display:flex}
+    .modal-box{
+      width:min(560px, 100%);
+      border:1px solid rgba(130,255,22,.6);
+      border-radius:28px;
+      background:linear-gradient(145deg, #050d09, #000);
+      box-shadow:0 0 60px rgba(130,255,22,.3);
+      padding:30px;
+      position:relative;
+    }
+    .close{
+      position:absolute;
+      right:18px;
+      top:16px;
+      background:none;
+      border:0;
+      color:var(--green);
+      font-size:30px;
+      cursor:pointer;
+    }
+    .modal-box h3{margin:0 0 10px;font-size:30px}
+    .modal-box p{margin:0 0 20px;color:var(--muted);line-height:1.5}
+    .form{display:grid;gap:12px}
+    input,textarea{
+      width:100%;
+      border:1px solid rgba(130,255,22,.3);
+      background:rgba(0,0,0,.5);
+      color:#fff;
+      border-radius:16px;
+      padding:15px 16px;
+      font:inherit;
+      outline:none;
+    }
+    input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 18px rgba(130,255,22,.14)}
+    .note{font-size:12px;color:#8ea38f;margin-top:10px!important}
+
+    @keyframes rotate{to{transform:rotate(360deg)}}
+    @keyframes pulse{
+      0%,100%{opacity:.55;transform:scale(1)}
+      50%{opacity:1;transform:scale(1.035)}
+    }
+
+    @media (max-width:980px){
+      .nav-links{display:none}
+      .hero-grid,.balance-wrap{grid-template-columns:1fr}
+      .hero-visual{min-height:440px}
+      .grid-stats,.modules,.meeting-grid,.faq,.reviews-grid{grid-template-columns:1fr}
+      .leader-card{grid-template-columns:1fr}
+      .leader-photo{min-height:420px}.leader-photo img{max-width:420px}
+      .weeks{grid-template-columns:repeat(4, 1fr);row-gap:18px}
+      .weeks::before{display:none}
+      h1{font-size:64px}
+    }
+    @media (max-width:520px){
+      .container{width:min(100% - 24px, 1180px)}
+      .brand-title{font-size:21px}
+      .brand-sub{display:none}
+      .hero{padding:54px 0}
+      .reward{grid-template-columns:1fr;text-align:left}
+      .reward-num{text-align:left}
+      .cta-card{padding:38px 18px}
+      .lead,.cta p{font-size:18px}
+      .hero-actions .btn{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="nav">
+      <div class="container nav-inner">
+        <a href="#top" class="brand">
+          <div class="logo" aria-label="SHILO.DEV">
+            <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+              <path d="M8 43V31l7-7v19H8Zm10 0V18l7-6v31h-7Zm10 0V10l8 6v27h-8Zm12 0V18l7 6v19h-7Zm10 0V31l6 6v6h-6Z" fill="white"/>
+              <path d="M8 49h48" stroke="white" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="brand-title">SHILO 50</div>
+            <div class="brand-sub">ПРОГРАММА РИЭЛТОРОВ НОВОГО ВРЕМЕНИ</div>
+          </div>
+        </a>
+        <nav class="nav-links">
+          <a href="#stats">Статистика</a>
+          <a href="#modules">Модули</a>
+          <a href="#schedule">Расписание</a>
+          <a href="#rewards">Поощрения</a>
+          <a href="#reviews">Отзывы</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <a class="btn" href="https://t.me/kirll_sch" target="_blank" rel="noopener noreferrer">Хочу участвовать</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="kicker">SHILO DEVELOPMENT · ЗАГОРОДНАЯ НЕДВИЖИМОСТЬ</div>
+            <h1>SHILO <span>50</span></h1>
+            <p class="lead">
+              Программа подготовки профессиональных риэлторов нового времени:
+              <b>экспертность, AI, личный бренд, Telegram, воронки и масштабирование продаж</b>
+              в сегменте загородной недвижимости.
+            </p>
+            <div class="hero-actions">
+              <a class="btn" href="https://t.me/kirll_sch" target="_blank" rel="noopener noreferrer">Хочу участвовать</a>
+              <a class="btn" href="#stats" style="background:rgba(0,0,0,.35);color:#fff;">Смотреть программу</a>
+            </div>
+          </div>
+
+          <div class="hero-visual" aria-hidden="true">
+            <div class="stats-orbit">
+              <div class="mini-stat"><strong>50</strong><span>риэлторов в потоке</span></div>
+              <div class="mini-stat"><strong>12</strong><span>недель дисциплины</span></div>
+              <div class="mini-stat"><strong>3</strong><span>модуля и аттестации</span></div>
+            </div>
+            <div class="house-card">
+              <div class="house-photo"></div>
+              <div class="reflection"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="leader-section" id="leader">
+        <div class="container">
+          <div class="leader-card">
+            <div class="leader-photo" aria-label="Александр Шевченко"><img src="https://i.postimg.cc/fWFSXPrV/IMG-4652.png" alt="Александр Шевченко"></div>
+            <div class="leader-content">
+              <div class="leader-tag">Руководитель проекта</div>
+              <h2>Александр Шевченко</h2>
+              <p class="leader-role">
+                Предприниматель и сооснователь <b>SHiLO Development</b>.
+              </p>
+              <div class="quote-box">
+                <p>«Мы сами прошли путь от первого показа до закрытия сделки — знаем продукт изнутри и понимаем, что действительно работает в продажах загородной недвижимости.</p>
+                <p>За годы практики я увидел главное: сделка стопорится не из-за дома, а из-за страхов клиента — ипотеки, недоверия, непонимания».</p>
+              </div>
+              <button class="btn" type="button" id="watchVideo">Смотреть видео</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="stats">
+        <div class="container">
+          <div class="section-head">
+            <h2>Ключевая <span class="accent">статистика</span></h2>
+            <p>Цифры проекта сохранены в логике презентации: масштаб, ритм, структура нагрузки, условия участия и формат результата.</p>
+          </div>
+          <div class="grid-stats">
+            <div class="stat-card"><div class="num">50</div><div class="label">риэлторов</div><div class="sub">в каждом потоке программы</div></div>
+            <div class="stat-card"><div class="num">12</div><div class="label">недель</div><div class="sub">системного движения и дисциплины</div></div>
+            <div class="stat-card"><div class="num">3</div><div class="label">модуля</div><div class="sub">после каждого — аттестация</div></div>
+            <div class="stat-card"><div class="num">6</div><div class="label">экспертных встреч</div><div class="sub">за курс с приглашёнными специалистами</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="modules">
+        <div class="container">
+          <div class="section-head">
+            <h2>Архитектура <span class="accent">программы</span></h2>
+            <p>Три модуля формируют путь от оцифровки точки А до воронки, продаж и масштабирования.</p>
+          </div>
+          <div class="modules">
+            <article class="module-card">
+              <h3>Оцифровка точки А и фундамент трафика</h3>
+              <ul>
+                <li>Diagnostic Scan: активы, доход, каналы трафика, энергия.</li>
+                <li>Распаковка ДНК личного бренда и уникальности эксперта.</li>
+                <li>Архитектура Telegram как продающей витрины.</li>
+                <li>Патчинг трафика и закрытие «дыр» лидогенерации.</li>
+              </ul>
+            </article>
+            <article class="module-card">
+              <h3>Синтез контента и AI-автоматизация</h3>
+              <ul>
+                <li>AI-ассистент, обученный на ДНК бренда риэлтора.</li>
+                <li>Нейровизуал и единый визуальный стиль эксперта.</li>
+                <li>Цифровой аватар для видеоконтента и прогрева клиентов.</li>
+              </ul>
+            </article>
+            <article class="module-card">
+              <h3>Архитектура воронки и масштабирование</h3>
+              <ul>
+                <li>Глубинная фильтрация потребностей клиента.</li>
+                <li>AI-захват через узкосегментированные лид-магниты.</li>
+                <li>Прогрев и цепочка касаний до показа и сделки.</li>
+                <li>Реферальная партнёрская сеть для дистанционных сделок.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="balance">
+        <div class="container">
+          <div class="section-head">
+            <h2>Баланс <span class="accent">нагрузки</span></h2>
+            <p>SHILO 50 — это не курс по нейросетям. Это школа сильного продавца, где AI умножает результат.</p>
+          </div>
+          <div class="balance-wrap">
+            <div class="donut-card">
+              <div class="donut">
+                <span class="p45">45%</span>
+                <span class="p25">25%</span>
+                <span class="p30">30%</span>
+              </div>
+              <div class="donut-caption">Маркетинг, экспертность и AI соединены в единую систему результата.</div>
+            </div>
+            <div class="balance-list">
+              <div class="info-card"><h3><b>45%</b> Маркетинг и привлечение</h3><p>Telegram как витрина, личный бренд, упаковка эксперта, прогревы, лидогенерация, контент-воронки.</p></div>
+              <div class="info-card"><h3><b>30%</b> Экспертность и продукт</h3><p>Загородная недвижимость, логика проектов Shilo, ипотека, технология строительства, показы и снятие возражений.</p></div>
+              <div class="info-card"><h3><b>25%</b> AI и технологии</h3><p>Нейросети, персональные AI-ассистенты, автоматизация рутины и генерация контента за секунды.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="schedule">
+        <div class="container">
+          <div class="section-head">
+            <h2>Расписание <span class="accent">живых встреч</span></h2>
+            <p>12 недель дисциплины, живых разборов, экспертных блоков, домашних заданий, аттестаций и Buddy-взаимодействия.</p>
+          </div>
+          <div class="timeline">
+            <div class="weeks">
+              <div class="week">НЕДЕЛЯ<br>01</div><div class="week">НЕДЕЛЯ<br>02</div><div class="week">НЕДЕЛЯ<br>03</div><div class="week">НЕДЕЛЯ<br>04</div>
+              <div class="week">НЕДЕЛЯ<br>05</div><div class="week">НЕДЕЛЯ<br>06</div><div class="week">НЕДЕЛЯ<br>07</div><div class="week">НЕДЕЛЯ<br>08</div>
+              <div class="week">НЕДЕЛЯ<br>09</div><div class="week">НЕДЕЛЯ<br>10</div><div class="week">НЕДЕЛЯ<br>11</div><div class="week">НЕДЕЛЯ<br>12</div>
+            </div>
+            <div class="meeting-grid">
+              <div class="info-card"><h3>Основная встреча</h3><p><b>1 раз / неделю.</b><br>Среда. Разборы стратегии, AI, контента и продаж.</p></div>
+              <div class="info-card"><h3>Экспертный блок</h3><p><b>1 раз / 2 недели.</b><br>Вторник. Глубокое изучение загородной недвижимости и проектов Shilo.</p></div>
+              <div class="info-card"><h3>Приглашённые эксперты</h3><p><b>6 встреч за курс.</b><br>Профайлер, квантовый психолог, брокер, эксперт по переговорам.</p></div>
+            </div>
+            <div class="info-card" style="margin-top:16px;border-color:rgba(130,255,22,.7);">
+              <h3>Операционная система</h3>
+              <p>Домашние задания, аттестации и Buddy-взаимодействие — обязательная часть системы, а не опция.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="rewards">
+        <div class="container">
+          <div class="section-head">
+            <h2>Система <span class="accent">поощрений</span></h2>
+            <p>Лучшие участники получают дополнительные бонусы по итогам аттестаций.</p>
+          </div>
+          <div class="rewards">
+            <div class="reward"><div class="reward-num">01</div><div><h3>После 1 аттестации</h3><p>Закрытая трансформационная игра от Людмилы Погореловой — топ-эксперта по личному бренду, топ-ментора, Москва.</p></div></div>
+            <div class="reward"><div class="reward-num">02</div><div><h3>После 2 аттестации</h3><p>Встреча с экспертом по мышлению: перезагрузка перед третьим модулем, восстановление ресурса и набор сил.</p></div></div>
+            <div class="reward"><div class="reward-num">03</div><div><h3>После 3 аттестации</h3><p>Финал программы — офлайн-выпускной SHILO 50: итоги, результаты, связи с партнёрами и загородная встреча за счёт Shilo Development.</p></div></div>
+          </div>
+        </div>
+      </section>
+
+      
+      <section id="reviews">
+        <div class="container">
+          <div class="section-head">
+            <h2>Отзывы <span class="accent">участников</span></h2>
+            <p>Живые впечатления участников после встреч и обучения в проекте SHILO.</p>
+          </div>
+
+          <div class="reviews-grid">
+            <article class="review-card">
+              <h3 class="review-name">Елена</h3>
+              <p class="review-text">
+                «Елена, Вы — не просто специалист. Вы обладаете редким даром видеть глубже и точнее, чем многие.
+                Словно тонко и бережно раскрываете потенциал, который уже есть внутри человека.
+                Благодаря Вам я увидела себя со стороны, по-новому услышала свой голос, и Вы собрали воедино то,
+                что раньше не было оформлено в целостную систему.
+                И самое ценное — Вы дали мне уверенность. Тихую, внутреннюю, но очень сильную.
+                Мой Telegram-канал стал другим. А главное — Вы помогли мне увидеть и осознать свою уникальность.
+                И в этом Ваша большая заслуга».
+              </p>
+            </article>
+
+            <article class="review-card">
+              <h3 class="review-name">Nadezhda Gorbunova</h3>
+              <p class="review-text">
+                «Коллеги, спасибо за эфир 🤝 С нейросетями работала, в том числе и с графическими.
+                Но всё так динамично меняется, что очень много полезной информации сегодня для себя получила.
+                Отдельная благодарность Елене за заряд. Фото и видео со стройки, в русском стиле — это просто 🔥🔥🔥
+                После этого не хочется быть „одним из...“, а хочется добавить креатива в работу.
+                С нетерпением ждём обещанную дополнительную информацию 🫶».
+              </p>
+            </article>
+
+            <article class="review-card">
+              <h3 class="review-name">Елена Черепанова АН «СЕМЬЯ»</h3>
+              <p class="review-text">
+                «Добрый вечер, спасибо за эфир, было очень полезно. Работаю в основном в GPT, знакома со всеми нейронками,
+                о которых говорила Елена, но сегодня узнала столько новой информации, спасибо большое Елена за новые знания
+                и новые идеи, в голове куча мыслей, которые хочется реализовать. С нетерпением жду информацию о том,
+                как выгодно подключиться к ИИшкам ))). Как же хочется поскорее научиться так же круто с ними управляться,
+                как демонстрировала Елена 👍».
+              </p>
+            </article>
+
+            <article class="review-card">
+              <h3 class="review-name">Ольга</h3>
+              <p class="review-text">
+                «Всем добрый вечер!!!!! Эфир был очень интересный и полезный 👍 надо только брать и делать.
+                А подскажите, для этого наверное удобнее работать в ноутбуке, чем в телефоне».
+              </p>
+            </article>
+
+            <article class="review-card" style="grid-column:1 / -1;">
+              <h3 class="review-name">Юлия Марченко</h3>
+              <p class="review-text">
+                «Добрый вечер! Сегодня действительно была огненная встреча. Много новых моментов узнала.
+                Огромная благодарность Александру за то, что приглашает крутых спикеров и не жалеет сил, времени
+                и своих знаний на наше обучение. Очень круто. Спасибо огромное и Александру, и Елене за такую
+                плодотворную встречу».
+              </p>
+            </article>
+          </div>
+
+          <div class="reviews-actions">
+            <a class="btn" href="https://t.me/otzivi_shilo" target="_blank" rel="noopener noreferrer">Больше отзывов</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq">
+        <div class="container">
+          <div class="section-head">
+            <h2>FAQ</h2>
+            <p>Ключевые вопросы, которые помогают быстро понять формат и ценность программы.</p>
+          </div>
+          <div class="faq">
+            <details open>
+              <summary>Кому подходит SHILO 50?</summary>
+              <p>Квартирным риэлторам, агентам крупных сетей, экспертам загородной недвижимости и амбициозным новаторам, которые готовы внедрять AI, личный бренд, Telegram и современные воронки продаж.</p>
+            </details>
+            <details>
+              <summary>Это курс по нейросетям?</summary>
+              <p>Нет. Это система подготовки сильного риэлтора нового времени. AI здесь используется как инструмент усиления экспертности, контента, упаковки, прогрева и продаж.</p>
+            </details>
+            <details>
+              <summary>Зачем нужны аттестации?</summary>
+              <p>Чтобы участник не просто слушал, а внедрял инструменты, выполнял задания, двигался по системе и подтверждал готовность переходить к следующему этапу.</p>
+            </details>
+            <details>
+              <summary>Что будет, если не набрать баллы?</summary>
+              <p>Если участник не набирает необходимый минимум, он покидает проект. В программе остаются те, кто готов к дисциплине, включённости и результату.</p>
+            </details>
+            <details>
+              <summary>Что получают лучшие участники?</summary>
+              <p>Дополнительные бонусы после аттестаций: трансформационная игра, встреча с экспертом по мышлению, а в финале — офлайн-выпускной SHILO 50.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" id="apply">
+        <div class="container">
+          <div class="cta-card">
+            <h2>Мир меняется.</h2>
+            <p>Если ты тоже готов идти в ногу со временем, то тебе в <b class="accent">SHILO 50</b>.</p>
+
+            <div class="price-final">
+              <div class="price-card">
+                <h3>Стоимость участия</h3>
+                <div class="price-value">20 000 ₽</div>
+                <p>Для участников предыдущих потоков действуют <b class="accent">специальные условия</b>.</p>
+              </div>
+
+              <div class="price-card">
+                <h3>Реферальная программа</h3>
+                <p>Можно участвовать выгоднее благодаря приглашению друга.</p>
+                <button class="btn learn-more" type="button" id="referralToggle">Узнать подробнее</button>
+                <div class="referral-details" id="referralDetails">
+                  <p><strong>Для приглашённого участника стоимость — 17 500 ₽.</strong></p>
+                  <p><strong>2 500 ₽</strong> из этой суммы получает человек, который пригласил.</p>
+                  <p><strong>Win-win:</strong> выгода вам, выгода вашему другу.</p>
+                </div>
+              </div>
+            </div>
+
+            <a class="btn" href="https://t.me/kirll_sch" target="_blank" rel="noopener noreferrer" style="margin-top:22px;">Хочу участвовать</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="video-modal" id="videoModal" role="dialog" aria-modal="true" aria-label="Видео Александра Шевченко">
+    <div class="video-box">
+      <button class="video-close" id="videoClose" aria-label="Закрыть видео">×</button>
+      <iframe
+        class="video-frame"
+        id="videoFrame"
+        data-src="https://rutube.ru/play/embed/ded400016fa3f5fe20738c475deb467e/?p=ZMeDGLQhmBHDKSUgD9HwYw"
+        allow="clipboard-write; autoplay"
+        webkitAllowFullScreen
+        mozallowfullscreen
+        allowFullScreen>
+      </iframe>
+    </div>
+  </div>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <button class="close" aria-label="Закрыть">×</button>
+      <h3 id="modalTitle">Заявка на участие</h3>
+      <p>Оставьте данные, чтобы зафиксировать интерес к участию в SHILO 50. Для публикации на GitHub можно заменить эту форму на ссылку Telegram/бота.</p>
+      <form class="form" onsubmit="event.preventDefault(); alert('Заявка зафиксирована. Подключите ссылку/бота для реального приема заявок.');">
+        <input required placeholder="Ваше имя" />
+        <input required placeholder="Телефон или Telegram" />
+        <textarea rows="4" placeholder="Коротко: ваш опыт и город"></textarea>
+        <button class="btn" type="submit">Хочу участвовать</button>
+      </form>
+      <p class="note">Подсказка: в коде можно заменить действие формы или кнопку на нужную ссылку для записи.</p>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('modal');
+    const openers = document.querySelectorAll('.js-open');
+    const close = document.querySelector('.close');
+
+    openers.forEach(btn => btn.addEventListener('click', () => modal.classList.add('active')));
+    close.addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) modal.classList.remove('active');
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') modal.classList.remove('active');
+    });
+
+    const referralToggle = document.getElementById('referralToggle');
+    const referralDetails = document.getElementById('referralDetails');
+    if (referralToggle && referralDetails) {
+      referralToggle.addEventListener('click', () => {
+        referralDetails.classList.toggle('active');
+        referralToggle.textContent = referralDetails.classList.contains('active') ? 'Скрыть подробности' : 'Узнать подробнее';
+      });
+    }
+
+    const watchVideo = document.getElementById('watchVideo');
+    const videoModal = document.getElementById('videoModal');
+    const videoClose = document.getElementById('videoClose');
+    const videoFrame = document.getElementById('videoFrame');
+
+    function openVideo() {
+      if (videoFrame && !videoFrame.src) {
+        videoFrame.src = videoFrame.dataset.src;
+      }
+      videoModal.classList.add('active');
+    }
+
+    function closeVideo() {
+      videoModal.classList.remove('active');
+      if (videoFrame) videoFrame.src = '';
+    }
+
+    if (watchVideo && videoModal && videoClose && videoFrame) {
+      watchVideo.addEventListener('click', openVideo);
+      videoClose.addEventListener('click', closeVideo);
+      videoModal.addEventListener('click', (event) => {
+        if (event.target === videoModal) closeVideo();
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeVideo();
+      });
+    }
+  </script>
+</body>
+</html>

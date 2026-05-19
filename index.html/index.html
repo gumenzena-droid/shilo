@@ -760,22 +760,6 @@
       color:#dfeadf;
       line-height:1.45;
     }
-    .referral-details{
-      display:none;
-      margin-top:14px;
-      border-top:1px solid rgba(130,255,22,.22);
-      padding-top:14px;
-      color:#dfeadf;
-      line-height:1.5;
-    }
-    .referral-details.active{display:block}
-    .referral-details strong{color:var(--green)}
-    .learn-more{
-      margin-top:16px;
-      min-height:42px;
-      padding:12px 18px;
-      font-size:13px;
-    }
 
     .modal{
       position:fixed;
@@ -878,7 +862,7 @@
           <a href="#reviews">Отзывы</a>
           <a href="#faq">FAQ</a>
         </nav>
-        <a class="btn" href="https://t.me/kirll_sch" target="_blank" rel="noopener noreferrer">Хочу участвовать</a>
+        <a class="btn" href="https://shilo.dev/oplata-shilo50" target="_blank" rel="noopener noreferrer">Хочу участвовать</a>
       </div>
     </header>
 
@@ -894,7 +878,7 @@
               в сегменте загородной недвижимости.
             </p>
             <div class="hero-actions">
-              <a class="btn" href="https://t.me/kirll_sch" target="_blank" rel="noopener noreferrer">Хочу участвовать</a>
+              <a class="btn" href="https://shilo.dev/oplata-shilo50" target="_blank" rel="noopener noreferrer">Хочу участвовать</a>
               <a class="btn" href="#stats" style="background:rgba(0,0,0,.35);color:#fff;">Смотреть программу</a>
             </div>
           </div>
@@ -1160,20 +1144,9 @@
                 <div class="price-value">20 000 ₽</div>
                 <p>Для участников предыдущих потоков действуют <b class="accent">специальные условия</b>.</p>
               </div>
-
-              <div class="price-card">
-                <h3>Реферальная программа</h3>
-                <p>Можно участвовать выгоднее благодаря приглашению друга.</p>
-                <button class="btn learn-more" type="button" id="referralToggle">Узнать подробнее</button>
-                <div class="referral-details" id="referralDetails">
-                  <p><strong>Для приглашённого участника стоимость — 17 500 ₽.</strong></p>
-                  <p><strong>2 500 ₽</strong> из этой суммы получает человек, который пригласил.</p>
-                  <p><strong>Win-win:</strong> выгода вам, выгода вашему другу.</p>
-                </div>
-              </div>
             </div>
 
-            <a class="btn" href="https://t.me/kirll_sch" target="_blank" rel="noopener noreferrer" style="margin-top:22px;">Хочу участвовать</a>
+            <a class="btn" href="https://shilo.dev/oplata-shilo50" target="_blank" rel="noopener noreferrer" style="margin-top:22px;">Хочу участвовать</a>
           </div>
         </div>
       </section>
@@ -1224,15 +1197,6 @@
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') modal.classList.remove('active');
     });
-
-    const referralToggle = document.getElementById('referralToggle');
-    const referralDetails = document.getElementById('referralDetails');
-    if (referralToggle && referralDetails) {
-      referralToggle.addEventListener('click', () => {
-        referralDetails.classList.toggle('active');
-        referralToggle.textContent = referralDetails.classList.contains('active') ? 'Скрыть подробности' : 'Узнать подробнее';
-      });
-    }
 
     const watchVideo = document.getElementById('watchVideo');
     const videoModal = document.getElementById('videoModal');
